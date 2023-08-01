@@ -21,8 +21,17 @@ import subprocess
 ERROR_FILE = "error.txt"
 OUTPUT_FILE = "output.txt"
 supported_archive_extensions = ['.zip', '.rar', '.7z']
-cpp_file_extensions = ['.cpp', '.h']
+programming_languages = {
+    'C++': { 'extensions': ['.cpp', '.h'], 'moss': 'cc' },
+    'Java': { 'extensions': ['.java'], 'moss': 'java' },
+    'C#': { 'extensions': ['.cs'], 'moss': 'csharp' },
+    'Python': { 'extensions': ['.py'], 'moss': 'python' },
+    'Visual Basic': { 'extensions': ['.vb', '.vbs'], 'moss': 'vb' },
+    'Javascript': { 'extensions': ['.js'], 'moss': 'javascript' },
+    'TypeScript': { 'extensions': ['.ts'], 'moss': 'javascript' }  # TypeScript is not directly supported by MOSS, so we'll use JavaScript as its language code.
+}
 misc_file_extensions = ['.pdf', '.docx', '.txt', '.csv', '.xlsx', '.pptx', '.jpg', '.png', '.mp3', '.mp4', '.html', '.css']
+
 
 # MODIFICATION: Prompt the user for the absolute path to the submissions.zip file's location.
 user_in = input("Enter the absolute path to the submissions.zip file's location: ")
@@ -56,6 +65,34 @@ os.makedirs(misc_files_folder, exist_ok=True)
 
 unzipped_code_folder = os.path.join(other_files, 'unzipped_code_files')
 os.makedirs(unzipped_code_folder, exist_ok=True)
+
+# Get user input for programming language
+def get_programming_language():
+    print("Please choose a programming language:")
+    print("1. C++")
+    print("2. Java")
+    print("3. C#")
+    print("4. Python")
+    print("5. Visual Basic")
+    print("6. Javascript")
+    print("7. TypeScript")
+    choice = input("Enter your choice (1-7): ")
+    
+    if choice == '1':
+        return programming_languages['C++']
+    elif choice == '2':
+        return programming_languages['Java']
+    elif choice == '3':
+        return programming_languages['C#']
+    elif choice == '4':
+        return programming_languages['Python']
+    elif choice == '5':
+        return programming_languages['Visual Basic']
+    elif choice == '6':
+        return programming_languages['Javascript']
+    elif choice == '7':
+        return programming_languages['TypeScript']
+    
 
 def extract_archive(file, target_folder):
     file_name, file_extension = os.path.splitext(file)
@@ -96,12 +133,12 @@ def flatten_dir(target_folder):
             except OSError:
                 pass  # Directory not empty
 
-def move_unsupported_files(target_folder, misc_files_folder):
+def move_unsupported_files(target_folder, misc_files_folder, file_extensions):
     # Move non .cpp and .h files
     for root, dirs, files in os.walk(target_folder):
         for file in files:
             file_path = Path(os.path.join(root, file))
-            if file_path.suffix.lower() not in cpp_file_extensions:
+            if file_path.suffix.lower() not in file_extensions:
                 target_path = os.path.join(misc_files_folder, file)
                 unique_target_path = unique_file(target_path)
                 shutil.move(str(file_path), unique_target_path)
@@ -114,7 +151,7 @@ def prompt_user():
     choice = input("Enter your choice (1, 2, or 3): ")
     return choice
 
-def extract_submissions():
+def extract_submissions(language_data):
     print("Extracting Sections Archives...")
     for file in Path('.').glob('*.*'):
         if file.suffix in supported_archive_extensions:
@@ -131,10 +168,10 @@ def extract_submissions():
 
             extract_archive(str(file), dir)
             flatten_dir(dir)
-            move_unsupported_files(dir, misc_files_folder)
+            move_unsupported_files(dir, misc_files_folder, language_data['extensions'])
 
             shutil.move(str(file), os.path.join(archives_folder, file.name))
-        elif file.suffix.lower() in cpp_file_extensions:
+        elif file.suffix.lower() in language_data['extensions']:
             prefix = file.stem.split('_', 1)[0]  # Extract the common prefix
             destination_folder = os.path.join(extracted_code_folders, prefix)
             os.makedirs(destination_folder, exist_ok=True)  # Create the destination folder if it doesn't exist
@@ -143,11 +180,11 @@ def extract_submissions():
             shutil.move(str(file), os.path.join(misc_files_folder, file.name))
 
 
-def run_moss():
+def run_moss(language_data):
     print("Running MOSS...")
     moss_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moss.pl")  # get absolute path of moss.pl file
     moss_file = moss_file.replace(' ', '\\ ')
-    moss_command = f"perl {moss_file} -l cc -d */*.cpp */*.h"
+    moss_command = f"perl {moss_file} -l {language_data['moss']} " + " ".join(f"-d */*{ext}" for ext in language_data['extensions'])
     result = subprocess.run(moss_command, shell=True, cwd=extracted_code_folders, capture_output=True, text=True)
     print(result.stdout)
     # Define output and error file paths inside the 'results' folder
@@ -167,11 +204,12 @@ def run_moss():
 
 def main():
     os.chdir(user_in)  # MODIFICATION: change to the user-provided directory
+    language_data = get_programming_language()
     choice = prompt_user()
     if choice == '1' or choice == '3':
-        extract_submissions()
+        extract_submissions(language_data)
     if choice == '2' or choice == '3':
-        run_moss()
+        run_moss(language_data)
 
 if __name__ == "__main__":
     main()
