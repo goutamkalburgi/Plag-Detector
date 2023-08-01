@@ -16,6 +16,8 @@ import shutil
 from pathlib import Path
 import subprocess
 
+
+
 ERROR_FILE = "error.txt"
 OUTPUT_FILE = "output.txt"
 supported_archive_extensions = ['.zip', '.rar', '.7z']
@@ -24,18 +26,6 @@ misc_file_extensions = ['.pdf', '.docx', '.txt', '.csv', '.xlsx', '.pptx', '.jpg
 
 # MODIFICATION: Prompt the user for the absolute path to the submissions.zip file's location.
 user_in = input("Enter the absolute path to the submissions.zip file's location: ")
-
-# Global directory variables
-other_files = os.path.join(user_in, 'results', 'other_files')  # MODIFICATION: store in results directory
-os.makedirs(other_files, exist_ok=True)
-extracted_code_folders = os.path.join(user_in, 'results', 'extracted_code_folders')  # MODIFICATION: store in results directory
-os.makedirs(extracted_code_folders, exist_ok=True)
-archives_folder = os.path.join(other_files, 'archives')
-os.makedirs(archives_folder, exist_ok=True)
-misc_files_folder = os.path.join(other_files, 'misc_files')
-os.makedirs(misc_files_folder, exist_ok=True)
-unzipped_code_folder = os.path.join(other_files, 'unzipped_code_files')
-os.makedirs(unzipped_code_folder, exist_ok=True)
 
 def unique_file(file_path):
     original_file_name, ext = os.path.splitext(file_path)
@@ -48,8 +38,29 @@ def unique_file(file_path):
         counter += 1
     return file_path
 
+# Global directory variables
+results_folder = unique_file(os.path.join(user_in, 'results'))  # unique results directory
+os.makedirs(results_folder, exist_ok=True)
+
+other_files = os.path.join(results_folder, 'other_files')  # store in results directory
+os.makedirs(other_files, exist_ok=True)
+
+extracted_code_folders = os.path.join(results_folder, 'extracted_code_folders')  # store in results directory
+os.makedirs(extracted_code_folders, exist_ok=True)
+
+archives_folder = os.path.join(other_files, 'archives')
+os.makedirs(archives_folder, exist_ok=True)
+
+misc_files_folder = os.path.join(other_files, 'misc_files')
+os.makedirs(misc_files_folder, exist_ok=True)
+
+unzipped_code_folder = os.path.join(other_files, 'unzipped_code_files')
+os.makedirs(unzipped_code_folder, exist_ok=True)
+
 def extract_archive(file, target_folder):
     file_name, file_extension = os.path.splitext(file)
+    error_file_path = os.path.join(results_folder, ERROR_FILE)
+
     try:
         if file_extension == ".zip":
             with zipfile.ZipFile(file, 'r') as zip_ref:
@@ -62,10 +73,10 @@ def extract_archive(file, target_folder):
                 z.extractall(target_folder)
         else:
             print(f'Unsupported file format: {file_extension}')
-            with open(ERROR_FILE, "a") as error_file:
+            with open(error_file_path, "a") as error_file:
                 error_file.write(f"Unsupported file format {file}: {file_extension}\n")
     except Exception as e:
-        with open(ERROR_FILE, "a") as error_file:
+        with open(error_file_path, "a") as error_file:
             error_file.write(f"Error processing file {file}: {str(e)}\n")
 
 def flatten_dir(target_folder):
@@ -136,16 +147,22 @@ def run_moss():
     print("Running MOSS...")
     moss_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moss.pl")  # get absolute path of moss.pl file
     moss_file = moss_file.replace(' ', '\\ ')
-    modified_extracted_code_folders = extracted_code_folders.replace(' ', '\\ ')
     moss_command = f"perl {moss_file} -l cc -d */*.cpp */*.h"
-    result = subprocess.run(moss_command, shell=True, cwd=modified_extracted_code_folders, capture_output=True, text=True)
+    result = subprocess.run(moss_command, shell=True, cwd=extracted_code_folders, capture_output=True, text=True)
     print(result.stdout)
-    with open(os.path.join(user_in, OUTPUT_FILE), "w") as file:  # write output in the user-provided path
-        if result.returncode != 0:
-            print("Error: " + result.stderr)
-            file.write("Error: " + result.stderr)
-        else:
-            file.write(result.stdout)
+    # Define output and error file paths inside the 'results' folder
+    output_file_path = os.path.join(results_folder, OUTPUT_FILE)
+    error_file_path = os.path.join(results_folder, ERROR_FILE)
+
+    # Write to output file
+    with open(output_file_path, "w") as file:  
+        file.write(result.stdout)
+        
+    # If there is an error, write to error file
+    if result.returncode != 0:
+        print("Error: " + result.stderr)
+        with open(error_file_path, "w") as file:
+            file.write(result.stderr)
 
 
 def main():
