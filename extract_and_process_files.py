@@ -22,10 +22,13 @@ supported_archive_extensions = ['.zip', '.rar', '.7z']
 cpp_file_extensions = ['.cpp', '.h']
 misc_file_extensions = ['.pdf', '.docx', '.txt', '.csv', '.xlsx', '.pptx', '.jpg', '.png', '.mp3', '.mp4', '.html', '.css']
 
+# MODIFICATION: Prompt the user for the absolute path to the submissions.zip file's location.
+user_in = input("Enter the absolute path to the submissions.zip file's location: ")
+
 # Global directory variables
-other_files = 'other_files'
+other_files = os.path.join(user_in, 'results', 'other_files')  # MODIFICATION: store in results directory
 os.makedirs(other_files, exist_ok=True)
-extracted_code_folders = 'extracted_code_folders'
+extracted_code_folders = os.path.join(user_in, 'results', 'extracted_code_folders')  # MODIFICATION: store in results directory
 os.makedirs(extracted_code_folders, exist_ok=True)
 archives_folder = os.path.join(other_files, 'archives')
 os.makedirs(archives_folder, exist_ok=True)
@@ -128,16 +131,25 @@ def extract_submissions():
         elif file.suffix.lower() in misc_file_extensions:
             shutil.move(str(file), os.path.join(misc_files_folder, file.name))
 
+
 def run_moss():
-    os.chdir('extracted_code_folders')
     print("Running MOSS...")
-    moss_command = "perl ../moss.pl -l cc -d */*.cpp */*.h"
-    result = subprocess.run(moss_command, shell=True, capture_output=True, text=True)
+    moss_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moss.pl")  # get absolute path of moss.pl file
+    moss_file = moss_file.replace(' ', '\\ ')
+    modified_extracted_code_folders = extracted_code_folders.replace(' ', '\\ ')
+    moss_command = f"perl {moss_file} -l cc -d */*.cpp */*.h"
+    result = subprocess.run(moss_command, shell=True, cwd=modified_extracted_code_folders, capture_output=True, text=True)
     print(result.stdout)
-    with open("../" + OUTPUT_FILE, "w") as file:
-        file.write(result.stdout)
+    with open(os.path.join(user_in, OUTPUT_FILE), "w") as file:  # write output in the user-provided path
+        if result.returncode != 0:
+            print("Error: " + result.stderr)
+            file.write("Error: " + result.stderr)
+        else:
+            file.write(result.stdout)
+
 
 def main():
+    os.chdir(user_in)  # MODIFICATION: change to the user-provided directory
     choice = prompt_user()
     if choice == '1' or choice == '3':
         extract_submissions()
@@ -146,7 +158,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
- 
