@@ -15,8 +15,10 @@ import glob
 import shutil
 from pathlib import Path
 import subprocess
+import eel  # Import eel
 
-
+# Initialize Eel with the 'web' folder
+eel.init('web')
 
 ERROR_FILE = "error.txt"
 OUTPUT_FILE = "output.txt"
@@ -32,9 +34,37 @@ programming_languages = {
 }
 misc_file_extensions = ['.pdf', '.docx', '.txt', '.csv', '.xlsx', '.pptx', '.jpg', '.png', '.mp3', '.mp4', '.html', '.css']
 
+# Declare global variables
+user_in = None
+results_folder = None
+other_files = None
+extracted_code_folders = None
+archives_folder = None
+misc_files_folder = None
+unzipped_code_folder = None
 
-# MODIFICATION: Prompt the user for the absolute path to the submissions.zip file's location.
-user_in = input("Enter the absolute path to the submissions.zip file's location: ")
+# Initialize the global variables
+def init(user_input):
+    global user_in, results_folder, other_files, extracted_code_folders, archives_folder, misc_files_folder, unzipped_code_folder
+    user_in = user_input
+
+    results_folder = unique_file(os.path.join(user_in, 'results'))  # unique results directory
+    os.makedirs(results_folder, exist_ok=True)
+
+    other_files = os.path.join(results_folder, 'other_files')  # store in results directory
+    os.makedirs(other_files, exist_ok=True)
+
+    extracted_code_folders = os.path.join(results_folder, 'extracted_code_folders')  # store in results directory
+    os.makedirs(extracted_code_folders, exist_ok=True)
+
+    archives_folder = os.path.join(other_files, 'archives')
+    os.makedirs(archives_folder, exist_ok=True)
+
+    misc_files_folder = os.path.join(other_files, 'misc_files')
+    os.makedirs(misc_files_folder, exist_ok=True)
+
+    unzipped_code_folder = os.path.join(other_files, 'unzipped_code_files')
+    os.makedirs(unzipped_code_folder, exist_ok=True)
 
 def unique_file(file_path):
     original_file_name, ext = os.path.splitext(file_path)
@@ -47,51 +77,33 @@ def unique_file(file_path):
         counter += 1
     return file_path
 
-# Global directory variables
-results_folder = unique_file(os.path.join(user_in, 'results'))  # unique results directory
-os.makedirs(results_folder, exist_ok=True)
-
-other_files = os.path.join(results_folder, 'other_files')  # store in results directory
-os.makedirs(other_files, exist_ok=True)
-
-extracted_code_folders = os.path.join(results_folder, 'extracted_code_folders')  # store in results directory
-os.makedirs(extracted_code_folders, exist_ok=True)
-
-archives_folder = os.path.join(other_files, 'archives')
-os.makedirs(archives_folder, exist_ok=True)
-
-misc_files_folder = os.path.join(other_files, 'misc_files')
-os.makedirs(misc_files_folder, exist_ok=True)
-
-unzipped_code_folder = os.path.join(other_files, 'unzipped_code_files')
-os.makedirs(unzipped_code_folder, exist_ok=True)
 
 # Get user input for programming language
-def get_programming_language():
-    print("Please choose a programming language:")
-    print("1. C++")
-    print("2. Java")
-    print("3. C#")
-    print("4. Python")
-    print("5. Visual Basic")
-    print("6. Javascript")
-    print("7. TypeScript")
-    choice = input("Enter your choice (1-7): ")
+# def get_programming_language():
+#     print("Please choose a programming language:")
+#     print("1. C++")
+#     print("2. Java")
+#     print("3. C#")
+#     print("4. Python")
+#     print("5. Visual Basic")
+#     print("6. Javascript")
+#     print("7. TypeScript")
+#     choice = input("Enter your choice (1-7): ")
     
-    if choice == '1':
-        return programming_languages['C++']
-    elif choice == '2':
-        return programming_languages['Java']
-    elif choice == '3':
-        return programming_languages['C#']
-    elif choice == '4':
-        return programming_languages['Python']
-    elif choice == '5':
-        return programming_languages['Visual Basic']
-    elif choice == '6':
-        return programming_languages['Javascript']
-    elif choice == '7':
-        return programming_languages['TypeScript']
+#     if choice == '1':
+#         return programming_languages['C++']
+#     elif choice == '2':
+#         return programming_languages['Java']
+#     elif choice == '3':
+#         return programming_languages['C#']
+#     elif choice == '4':
+#         return programming_languages['Python']
+#     elif choice == '5':
+#         return programming_languages['Visual Basic']
+#     elif choice == '6':
+#         return programming_languages['Javascript']
+#     elif choice == '7':
+#         return programming_languages['TypeScript']
     
 
 def extract_archive(file, target_folder):
@@ -143,13 +155,13 @@ def move_unsupported_files(target_folder, misc_files_folder, file_extensions):
                 unique_target_path = unique_file(target_path)
                 shutil.move(str(file_path), unique_target_path)
 
-def prompt_user():
-    print("What would you like to do?")
-    print("1. Extract submissions and individual files")
-    print("2. Run MOSS plagiarism check")
-    print("3. Both (Extract and Run MOSS)")
-    choice = input("Enter your choice (1, 2, or 3): ")
-    return choice
+# def prompt_user():
+#     print("What would you like to do?")
+#     print("1. Extract submissions and individual files")
+#     print("2. Run MOSS plagiarism check")
+#     print("3. Both (Extract and Run MOSS)")
+#     choice = input("Enter your choice (1, 2, or 3): ")
+#     return choice
 
 def extract_submissions(language_data):
     print("Extracting Sections Archives...")
@@ -184,7 +196,7 @@ def run_moss(language_data):
     print("Running MOSS...")
     moss_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moss.pl")  # get absolute path of moss.pl file
     moss_file = moss_file.replace(' ', '\\ ')
-    moss_command = f"perl {moss_file} -l {language_data['moss']} " + " ".join(f"-d */*{ext}" for ext in language_data['extensions'])
+    moss_command = f"perl {moss_file} -l {language_data['moss']} -d " + " ".join(f"*/*{ext}" for ext in language_data['extensions'])
     result = subprocess.run(moss_command, shell=True, cwd=extracted_code_folders, capture_output=True, text=True)
     print(result.stdout)
     # Define output and error file paths inside the 'results' folder
@@ -202,14 +214,17 @@ def run_moss(language_data):
             file.write(result.stderr)
 
 
-def main():
-    os.chdir(user_in)  # MODIFICATION: change to the user-provided directory
-    language_data = get_programming_language()
-    choice = prompt_user()
+# The inputs are now passed as function arguments instead of being read from the terminal
+@eel.expose  # Expose this function to JavaScript
+def main(input_user_in, language_choice, operation_choice):
+    init(input_user_in)
+    os.chdir(user_in)
+    language_data = programming_languages[language_choice]
+    choice = operation_choice
     if choice == '1' or choice == '3':
         extract_submissions(language_data)
     if choice == '2' or choice == '3':
         run_moss(language_data)
 
 if __name__ == "__main__":
-    main()
+    eel.start('index.html')  # Name of the HTML file

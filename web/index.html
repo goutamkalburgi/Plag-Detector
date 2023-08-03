@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Python App</title>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+    <h1>My Python App</h1>
+    <input id="userIn" type="text" placeholder="Enter the path to submissions.zip file">
+    <select id="languageChoice">
+        <option value="C++">C++</option>
+        <option value="Java">Java</option>
+        <option value="C#">C#</option>
+        <option value="Python">Python</option>
+        <option value="Visual Basic">Visual Basic</option>
+        <option value="Javascript">Javascript</option>
+        <option value="TypeScript">TypeScript</option>
+    </select>
+    <select id="operationChoice">
+        <option value="1">Extract submissions and individual files</option>
+        <option value="2">Run MOSS plagiarism check</option>
+        <option value="3">Both (Extract and Run MOSS)</option>
+    </select>
+    <button onclick="run()">Run</button>
+</body>
+</html>
