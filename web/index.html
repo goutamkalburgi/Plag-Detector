@@ -3,21 +3,25 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Plagiarism Detection in projects using MOSS Integration</title>
-    <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script type="text/javascript" src="/eel.js"></script>
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 
-    <button onclick="run()">Run</button>
 
 
 
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
-            <!-- <lottie-player src="./assets/banner.json" background="transparent" style="width: 300px; height: 300px;" speed="1" loop autoplay></lottie-player> -->
+            <!-- <lottie-player src="./assets/banner.json" background="transparent" style="width: 200px; height: 200px;" speed="1" loop autoplay></lottie-player> -->
+            <div class="lottie-wrapper">
+                <lottie-player src="./assets/banner.json" background="transparent" style="width: 200px; height: 200px;" speed="1" loop autoplay></lottie-player>
+            </div>
+            
             <div class="formbold-form-title">
                 <h2 class="">Plagiarism Detection in projects using MOSS Integration</h2>
                 <p>
@@ -25,7 +29,6 @@
                     eiusmod tempor incididunt.
                 </p>
             </div>
-          <form>
               <div class="formbold-steps">
                   <ul>
                       <li class="formbold-step-menu1 active">
@@ -68,6 +71,9 @@
                         <option value="2">Run MOSS plagiarism check</option>
                     </select>
                 </div>
+                <div class="margin-vertical-16">
+                    <button id="run-button" type="button" class="formbold-btn" onclick="run()">Run</button>
+                </div>
               </div>
 
               <div class="formbold-form-step-2">
@@ -91,7 +97,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                   </p>
       
-                  <div>
+                  <!-- <div>
                     <button class="formbold-confirm-btn active">
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="11" cy="11" r="10.5" fill="white" stroke="#DDE3EC"/>
@@ -121,11 +127,11 @@
                       </svg>
                       No! I don’t want it.
                     </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
       
-              <div class="formbold-form-btn-wrapper">
+              <!-- <div class="formbold-form-btn-wrapper">
                 <button type="button" class="formbold-back-btn">
                   Back
                 </button>
@@ -143,11 +149,9 @@
                     </defs>
                     </svg>
                 </button>
-              </div>
-          </form>
+              </div> -->
         </div>
       </div>
-      <script type="text/javascript" src="script.js"></script>
 
 </body>
 </html>

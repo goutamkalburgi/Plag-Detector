@@ -25,6 +25,7 @@ body {
   padding-bottom: 18px;
   margin-bottom: 35px;
   border-bottom: 1px solid #DDE3EC;
+  cursor: pointer;
 }
 .formbold-steps ul {
   padding: 0;
@@ -166,21 +167,25 @@ body {
   display: block;
 }
 .formbold-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 16px;
-  border-radius: 5px;
-  padding: 10px 25px;
-  border: none;
-  font-weight: 500;
-  background-color: #6A64F1;
-  color: white;
-  cursor: pointer;
+text-align: center;
+font-size: 16px;
+border-radius: 6px;
+padding: 14px 32px;
+border: none;
+font-weight: 600;
+background-color: #6a64f1;
+color: white;
+width: 100%;
+cursor: pointer;
 }
 .formbold-btn:hover {
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
+.formbold-btn:disabled {
+background-color: #b2b2b2; /* or any other shade of gray you prefer */
+cursor: not-allowed; /* changes the cursor to indicate the button is disabled */
+}
+  
 .formbold-form-title {
     margin-bottom: 30px;
 }
@@ -253,3 +258,80 @@ border-radius: 50%;
 background: #FFFFFF;
 transform: translate(-50%, -50%);
 }
+/* All Directions */
+
+.margin-4 {
+margin: 4px;
+}
+
+.margin-8 {
+margin: 8px;
+}
+
+.margin-12 {
+margin: 12px;
+}
+
+.margin-16 {
+margin: 16px;
+}
+
+/* Vertical Margins (Top and Bottom) */
+
+.margin-vertical-4 {
+margin-top: 4px;
+margin-bottom: 4px;
+}
+
+.margin-vertical-8 {
+margin-top: 8px;
+margin-bottom: 8px;
+}
+
+.margin-vertical-12 {
+margin-top: 12px;
+margin-bottom: 12px;
+}
+
+.margin-vertical-16 {
+margin-top: 16px;
+margin-bottom: 16px;
+}
+
+/* Horizontal Margins (Left and Right) */
+
+.margin-horizontal-4 {
+margin-left: 4px;
+margin-right: 4px;
+}
+
+.margin-horizontal-8 {
+margin-left: 8px;
+margin-right: 8px;
+}
+
+.margin-horizontal-12 {
+margin-left: 12px;
+margin-right: 12px;
+}
+
+.margin-horizontal-16 {
+margin-left: 16px;
+margin-right: 16px;
+}
+
+.lottie-wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+lottie-player {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 200px;
+height: 200px;
+}
+  
+  
+
