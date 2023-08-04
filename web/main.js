@@ -10,6 +10,10 @@ async function browseFolder() {
     console.log(path);
     if (path) {  // If path is not None or invalid
         document.getElementById('userIn').value = path;
+        let userInput = document.getElementById('userIn');
+        let inputEvent = new Event('input');
+        userInput.dispatchEvent(inputEvent);
+
     }
 }
 
