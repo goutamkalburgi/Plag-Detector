@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-  const stepMenuOne = document.querySelector('.formbold-step-menu1');
-  const stepMenuTwo = document.querySelector('.formbold-step-menu2');
-  const stepMenuThree = document.querySelector('.formbold-step-menu3');
+  const stepMenuOne = document.querySelector('.step-menu1');
+  const stepMenuTwo = document.querySelector('.step-menu2');
+  const stepMenuThree = document.querySelector('.step-menu3');
 
-  const stepOne = document.querySelector('.formbold-form-step-1');
-  const stepTwo = document.querySelector('.formbold-form-step-2');
-  const stepThree = document.querySelector('.formbold-form-step-3');
+  const stepOne = document.querySelector('.form-step-1');
+  const stepTwo = document.querySelector('.form-step-2');
+  const stepThree = document.querySelector('.form-step-3');
 
   stepMenuOne.addEventListener('click', function(){
     activateStepMenu(stepMenuOne, stepOne);

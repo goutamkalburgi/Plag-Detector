@@ -16,6 +16,9 @@ import shutil
 from pathlib import Path
 import subprocess
 import eel  # Import eel
+import multiprocessing
+import tkinter as tk
+from tkinter import filedialog
 
 # Initialize Eel with the 'web' folder
 eel.init('web')
@@ -76,6 +79,22 @@ def unique_file(file_path):
         file_path = f"{name}{ext}"
         counter += 1
     return file_path
+
+def tkinter_file_dialog(q):
+    root = tk.Tk()
+    root.withdraw()
+    folder_selected = filedialog.askdirectory()
+    root.destroy()
+    q.put(folder_selected)
+
+@eel.expose
+def select_directory():
+    q = multiprocessing.Queue()
+    p = multiprocessing.Process(target=tkinter_file_dialog, args=(q,))
+    p.start()
+    p.join()
+    result = q.get()
+    return result if result else None
 
 
 # Get user input for programming language
@@ -227,4 +246,5 @@ def main(input_user_in, language_choice, operation_choice):
         run_moss(language_data)
 
 if __name__ == "__main__":
-    eel.start('index.html')  # Name of the HTML file
+    window_size = (800, 720)
+    eel.start('index.html', size=window_size)  # Name of the HTML file
