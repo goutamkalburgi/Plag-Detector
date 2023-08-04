@@ -4,9 +4,12 @@ function run() {
     let operationChoice = document.getElementById('operationChoice').value;
     let loading = document.getElementById('myProgress');
     let resultHTML = document.getElementById('result');
+    let output = document.getElementById('output');
+
     loading.style.display = "block"; 
     resultHTML.innerHTML = "";
     resultHTML.href = "";
+    output.innerHTML = "";
     
     const stepMenuTwo = document.querySelector('.step-menu2');
     let changeTabEvent = new Event('click');
@@ -29,8 +32,12 @@ async function browseFolder() {
 
 eel.expose(update_result);
 function update_result(result) {
+    let userIn = document.getElementById('userIn').value;
     let resultHTML = document.getElementById('result');
     let loading = document.getElementById('myProgress');
+    let output = document.getElementById('output');
+    output.innerHTML = "Please find the output file in: " + userIn + "/results";
+
     loading.style.display = "none"; 
     // Split the message into lines
     let lines = result.split('\n');
@@ -50,7 +57,7 @@ function move() {
     i = 1;
     var elem = document.getElementById("myBar");
     var width = 1;
-    var id = setInterval(frame, 10);
+    var id = setInterval(frame, 20);
     function frame() {
       if (width >= 100) {
         clearInterval(id);
