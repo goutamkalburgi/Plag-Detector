@@ -217,6 +217,7 @@ def run_moss(language_data):
     moss_file = moss_file.replace(' ', '\\ ')
     moss_command = f"perl {moss_file} -l {language_data['moss']} -d " + " ".join(f"*/*{ext}" for ext in language_data['extensions'])
     result = subprocess.run(moss_command, shell=True, cwd=extracted_code_folders, capture_output=True, text=True)
+    eel.update_result(result.stdout)  # Pass the stdout to JavaScript function
     print(result.stdout)
     # Define output and error file paths inside the 'results' folder
     output_file_path = os.path.join(results_folder, OUTPUT_FILE)
