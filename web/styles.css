@@ -89,6 +89,12 @@ body {
   color: #FFFFFF;
 }
 
+.form-step-3 {
+  height: 400px; /* You can adjust this value based on your design needs */
+  overflow-y: auto;
+  padding-right: 15px; /* to prevent the content from touching the scrollbar */
+}
+
 /* -------------------------------------
    Input & Form Styles
    ------------------------------------- */
@@ -377,6 +383,18 @@ body {
 
 .margin-top-16 {
   margin-top: 16px;
+}
+
+.margin-bottom-4 {
+  margin-bottom: 4px;
+}
+
+.margin-bottom-8 {
+  margin-bottom: 8px;
+}
+
+.margin-bottom-12 {
+  margin-bottom: 12px;
 }
 
 .margin-bottom-16 {

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Title of the webpage -->
-  <title>Plagiarism Detection in projects using MOSS Integration</title>
+  <title>Projects Plagiarism Detector using MOSS Integration</title>
 
   <!-- Lottie animation library -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -32,15 +32,15 @@
       <div class="lottie-wrapper">
 
         <!-- Lottie player to play the JSON animation -->
-        <lottie-player src="./assets/banner.json" background="transparent" style="width: 200px; height: 200px;"
-          speed="1" loop autoplay></lottie-player>
+        <lottie-player src="./assets/banner.json" background="transparent" style="width: 170px; height: 170px;"
+          speed="0.5" loop autoplay></lottie-player>
       </div>
 
       <!-- Title section of the form -->
       <div class="form-title">
-        <h2 class="">Plagiarism Detection in projects using MOSS Integration</h2>
+        <h2 class="">Projects Plagiarism Detector using MOSS Integration</h2>
         <p>
-          By Goutam Kalburgi
+          Plagiarism Detection in Project Submissions Through Seamless MOSS Integration.
         </p>
       </div>
 
@@ -98,16 +98,16 @@
       <div class="form-step-1 active">
         <!-- Input for the path to submissions.zip file -->
         <div class="margin-bottom-16">
-          <label for="userIn" class="form-label">Enter the path to submissions.zip file</label>
+          <label for="userIn" class="form-label">Enter the directory containing section submissions archives.</label>
           <div class="same-line-input-btn">
-            <input id="userIn" type="text" placeholder="C:/Users/Documents/AssignmentSubmissions" class="form-input">
+            <input id="userIn" type="text" placeholder="C:\Users\YourName\Documents\Submissions\" class="form-input">
             <button type="button" class="same-line-btn-sm" onclick="browseFolder()">Browse</button>
           </div>
         </div>
 
         <!-- Dropdown for selecting a programming language -->
         <div class="margin-bottom-16">
-          <label for="languageChoice" class="form-label">Please choose a programming language</label>
+          <label for="languageChoice" class="form-label">Please select the programming language used for the assignment.</label>
           <select id="languageChoice" class="form-input">
             <option value="C++">C++</option>
             <option value="Java">Java</option>
@@ -121,10 +121,10 @@
 
         <!-- Dropdown for choosing the desired operation -->
         <div class="margin-bottom-16">
-          <label for="operationChoice" class="form-label">What would you like to do?</label>
+          <label for="operationChoice" class="form-label">Please select the desired operation.</label>
           <select id="operationChoice" class="form-input">
-            <option value="3">Extract and Run MOSS</option>
-            <option value="1">Extract submissions and individual files</option>
+            <option value="3">Extract Submissions and Run MOSS</option>
+            <option value="1">Extract Submissions and Organize Relevant Files</option>
             <!-- <option value="2">Run MOSS plagiarism check</option> -->
           </select>
           <p class="form-info" id="operationDescription"></p>
@@ -139,26 +139,72 @@
       <!-- Form for the second step: Viewing the results -->
       <div class="form-step-2">
         <div>
-          <label for="result" class="form-label"> Result: </label>
+          <label for="result" class="form-label">Results</label>
           <!-- Progress bar -->
           <div id="myProgress" class="margin-vertical-12" style="display: none;">
             <div id="myBar"></div>
           </div>
           <!-- Result link and output text -->
           <a name="result" id="result" target="_blank" class="margin-vertical-16"></a>
-          <div id="logContainer"></div>
+          <div id="logContainer">
+            <p class="form-label">To view similarity results here, initiate the following steps:</p>
+            <ol>
+                <li class="margin-vertical-8">Enter the directory containing section submissions archives. This path serves as the location for storing the analysis results too.</li>
+                <li class="margin-vertical-8">Specify the programming language used in the student assignments.</li>
+                <li class="margin-vertical-8">Choose the desired operation:
+                    <ul class="margin-vertical-8">
+                        <li>Extract submissions and run MOSS for a thorough similarity check.</li>
+                        <li>Extract submissions without executing MOSS for manual inspection.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p class="margin-vertical-8">Upon successful execution, a 'results' folder will be created in your specified directory. This folder will contain:</p>
+            <ul>
+                <li class="margin-vertical-8"><code>extracted_code_folders</code>: Individual student folders with relevant programming files based on your language selection.</li>
+                <li class="margin-vertical-8"><code>other_files</code>: A compartmentalized directory with miscellaneous files (<code>misc_files</code>) and unzipped code files (<code>unzipped_code_files</code>).</li>
+                <li class="margin-vertical-8"><code>archives</code>: A directory preserving individual student submission archives.</li>
+            </ul>
+
+          </div>
         </div>
       </div>
 
       <!-- Form for the third step: About -->
       <div class="form-step-3">
-        <div class="form-confirm">
-          <!-- Link to the GitHub repository -->
-          <p>
-            <a href="https://github.com/goutamkalburgi/Plagiarism-Detection-in-CPP-projects-using-MOSS-Integration">Github
-              Link</a>
-          </p>
-        </div>
+        <div>
+
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">About the Developer:</p>
+              <p><a href="https://www.linkedin.com/in/goutamkalburgi/" target="_blank">Goutamkumar Kalburgi</a>, a Master's in Computer Science, is a dedicated software developer with years of industry experience. Passionate about community-building, Goutam is proficient across a spectrum of programming tools and languages. Committed to continuous learning, he easily adapts to diverse environments.</p>
+          </div>
+      
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">Project Repository:</p>
+              <p><a href="https://github.com/goutamkalburgi/Plagiarism-Detection-in-CPP-projects-using-MOSS-Integration" target="_blank">Visit the GitHub link here</a>.</p>
+          </div>
+      
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">About MOSS:</p>
+              <p><a href="https://theory.stanford.edu/~aiken/moss/" target="_blank">MOSS (Measure Of Software Similarity)</a> is an automatic system designed to determine program similarity, primarily used in academia to detect plagiarism since 1994. While effective, it requires human intervention to conclude plagiarism cases.</p>
+          </div>
+      
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">Non-commercial Statement:</p>
+              <p>This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.</p>
+          </div>
+      
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">Essential Project Aspects:</p>
+              <p>Organizes files in 'extracted_code_folders'. Note: MOSS results are typically deleted after 14 days.</p>
+          </div>
+      
+          <div class="margin-bottom-12">
+              <p class="form-label margin-bottom-4">Other Essential Information:</p>
+              <p>Ensure the submissions are well-structured, as the tool organizes files based on user input. Always review MOSS results critically to conclude any plagiarism case.</p>
+          </div>
+      
+      </div>
+      
       </div>
     </div>
   </div>

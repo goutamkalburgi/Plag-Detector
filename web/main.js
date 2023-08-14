@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function setDescriptionByChoice(value) {
         switch (value) {
             case "3":
-                operationDescription.textContent = "This will extract the submissions of the sections, extract the individual submissions and flatten the directory such that all relevant programming files are in the main student submissions folder and run moss.";
+                operationDescription.textContent = "This action first extracts section submissions, followed by individual student archives. Next, it organizes relevant programming files and runs MOSS for similarity analysis.";
                 break;
             case "1":
-                operationDescription.textContent = "It will only extract submissions and individual submissions and flatten the directory.";
+                operationDescription.textContent = "This action first extracts section submissions and individual student archives. Then, it organizes the relevant programming files without running MOSS.";
                 break;
             default:
                 operationDescription.textContent = "";
