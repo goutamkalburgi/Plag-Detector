@@ -24,7 +24,6 @@ class MossInterface:
 
         :param language_data: Dictionary with 'moss' for language specifier and 'extensions' as file extensions list.
         """
-        print("Running MOSS...")
         eel.appendToLog("Running MOSS...", True)
         
         # Get the absolute path of the moss.pl script
@@ -43,7 +42,7 @@ class MossInterface:
         lines = result.stdout.split('\n')
         lastLine = lines[-2]
         eel.appendToLog("The result is '" + lastLine + "'", True)
-        print(result.stdout)
+        eel.completeProgressBar()
 
         # Define paths for output and error files inside the 'results' folder
         output_file_path = os.path.join(self.results_folder, self.output_file)
@@ -55,6 +54,6 @@ class MossInterface:
 
         # If there was an error during the MOSS execution, write the error to error file
         if result.returncode != 0:
-            print("Error: " + result.stderr)
             with open(error_file_path, "w") as file:
                 file.write(result.stderr)
+                eel.appendToLog(result.stderr, False)

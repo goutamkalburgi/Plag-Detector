@@ -77,13 +77,15 @@ class FileManager:
                     z.extractall(target_folder)
             else:
                 # Log unsupported file formats
-                print(f'Unsupported file format: {file_extension}')
+                eel.appendToLog(f"Unsupported file format {file}: {file_extension}", False)
                 with open(error_file_path, "a") as file:
                     file.write(f"Unsupported file format {file}: {file_extension}\n")
         except Exception as e:
             # Log exceptions that occur during extraction
+            eel.appendToLog(f"Error processing file {file}: {str(e)}", False)
             with open(error_file_path, "a") as file:
                 file.write(f"Error processing file {file}: {str(e)}\n")
+
 
 
     def flatten_dir(self, target_folder):
@@ -114,17 +116,28 @@ class FileManager:
                     shutil.move(str(file_path), unique_target_path)
 
 
-    def extract_submissions(self, language_data):
+    def extract_submissions(self, language_data, optional_callback=None):
         """Extract submission archives, then extract individual archives, flatten the structure, and organize files."""
-        print("Extracting Sections Archives...")
-        eel.appendToLog("Extracting Sections Archives...", True)
+        section_archive_count = 0
+        individual_archive_count = 0
+
         for file in Path('.').glob('*.*'):
             if file.suffix in configuration.SUPPORTED_ARCHIVE_EXTENSIONS:
                 self.extract_archive(str(file), self.other_files)
-        print("Extracting all individual archives of sections and flattening the content...")
+                section_archive_count += 1
+
+        # Check for no section archives
+        if section_archive_count == 0:
+            eel.appendToLog("No sections archives found.", False)
+            eel.completeProgressBar()
+            return section_archive_count, individual_archive_count
+        
+        eel.appendToLog("Extracting Sections Archives...", True)
+
         eel.appendToLog("Extracting all individual archives of sections and flattening the content...", True)
         for file in Path(self.other_files).glob('*.*'):
             if file.suffix in configuration.SUPPORTED_ARCHIVE_EXTENSIONS:
+                individual_archive_count += 1
                 dir = os.path.join(self.extracted_code_folders, str(file.stem))
                 try:
                     os.makedirs(dir)
@@ -141,5 +154,17 @@ class FileManager:
                 shutil.move(str(file), os.path.join(destination_folder, file.name))
             elif file.suffix.lower() in configuration.MISC_FILE_EXTENSIONS:
                 shutil.move(str(file), os.path.join(self.misc_files_folder, file.name))
-        print("Extraction and flattening of content completed. Please check the 'extracted_code_folders' directory within the '" + self.results_folder + "' folder for the obtained results.")
+
+        # Check for no individual archives
+        if individual_archive_count == 0 or individual_archive_count == 1:
+            eel.appendToLog("Found zero or only one individual archive inside section archives.", False)
+            eel.completeProgressBar()
         eel.appendToLog("Extraction and flattening of content completed. Please check the 'extracted_code_folders' directory within the '" + self.results_folder + "' folder for the obtained results.", True)
+        
+        if optional_callback:
+            optional_callback()
+        
+        return section_archive_count, individual_archive_count
+    
+    def complete_progress_bar(self):
+        eel.completeProgressBar()

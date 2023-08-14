@@ -445,9 +445,14 @@ lottie-player {
 }
 
 #myBar {
-  width: 1%;
+  width: 10%;
   height: 20px;
   background-color: #6A64F1;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .tickSvg {

@@ -36,9 +36,13 @@ def main(input_user_in, language_choice, operation_choice):
     # Determine operation(s) to perform based on user's choice
     choice = operation_choice
     if choice == '1' or choice == '3':
-        file_manager.extract_submissions(language_data)
+        if choice == '1':
+            section_archive_count, individual_archive_count = file_manager.extract_submissions(language_data, file_manager.complete_progress_bar)
+        else:
+            section_archive_count, individual_archive_count = file_manager.extract_submissions(language_data)
     if choice == '2' or choice == '3':
-        moss_interface.run_moss(language_data)
+        if section_archive_count and individual_archive_count > 1:
+            moss_interface.run_moss(language_data)
 
 if __name__ == "__main__":
     # Initialize the Eel web app with the 'web' folder
