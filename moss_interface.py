@@ -25,6 +25,7 @@ class MossInterface:
         :param language_data: Dictionary with 'moss' for language specifier and 'extensions' as file extensions list.
         """
         print("Running MOSS...")
+        eel.appendToLog("Running MOSS...", True)
         
         # Get the absolute path of the moss.pl script
         moss_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moss.pl")
@@ -39,7 +40,9 @@ class MossInterface:
         result = subprocess.run(moss_command, shell=True, cwd=self.extracted_code_folders, capture_output=True, text=True)
         
         # Pass the stdout to JavaScript function
-        eel.update_result(result.stdout)
+        lines = result.stdout.split('\n')
+        lastLine = lines[-2]
+        eel.appendToLog("The result is '" + lastLine + "'", True)
         print(result.stdout)
 
         # Define paths for output and error files inside the 'results' folder

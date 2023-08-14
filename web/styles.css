@@ -124,10 +124,14 @@ body {
 .form-label {
   color: #07074D;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
   display: block;
   margin-bottom: 10px;
+}
+
+.font-size-16 {
+  font-size: 16px;
 }
 
 .form-confirm {
@@ -254,6 +258,12 @@ body {
   margin-top: 12px;
 }
 
+.form-info {
+  margin-top: 16px;
+  font-style: italic;
+  color: #536387;
+}
+
 /* -------------------------------------
    Radio Button Styles
    ------------------------------------- */
@@ -365,6 +375,14 @@ body {
   margin-bottom: 16px;
 }
 
+.margin-top-16 {
+  margin-top: 16px;
+}
+
+.margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
 /* Horizontal Margins (Left and Right) */
 
 .margin-horizontal-4 {
@@ -430,4 +448,8 @@ lottie-player {
   width: 1%;
   height: 20px;
   background-color: #6A64F1;
+}
+
+.tickSvg {
+  margin-right: 10px;  /* Adjust the value as needed */
 }

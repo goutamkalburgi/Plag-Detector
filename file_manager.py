@@ -5,6 +5,7 @@ import py7zr
 import shutil
 from pathlib import Path
 import configuration
+import eel
 
 class FileManager:
     """Handles file management tasks such as archive extraction, directory flattening, and file organization."""
@@ -116,10 +117,12 @@ class FileManager:
     def extract_submissions(self, language_data):
         """Extract submission archives, then extract individual archives, flatten the structure, and organize files."""
         print("Extracting Sections Archives...")
+        eel.appendToLog("Extracting Sections Archives...", True)
         for file in Path('.').glob('*.*'):
             if file.suffix in configuration.SUPPORTED_ARCHIVE_EXTENSIONS:
                 self.extract_archive(str(file), self.other_files)
         print("Extracting all individual archives of sections and flattening the content...")
+        eel.appendToLog("Extracting all individual archives of sections and flattening the content...", True)
         for file in Path(self.other_files).glob('*.*'):
             if file.suffix in configuration.SUPPORTED_ARCHIVE_EXTENSIONS:
                 dir = os.path.join(self.extracted_code_folders, str(file.stem))
@@ -139,3 +142,4 @@ class FileManager:
             elif file.suffix.lower() in configuration.MISC_FILE_EXTENSIONS:
                 shutil.move(str(file), os.path.join(self.misc_files_folder, file.name))
         print("Extraction and flattening of content completed. Please check the 'extracted_code_folders' directory within the '" + self.results_folder + "' folder for the obtained results.")
+        eel.appendToLog("Extraction and flattening of content completed. Please check the 'extracted_code_folders' directory within the '" + self.results_folder + "' folder for the obtained results.", True)
