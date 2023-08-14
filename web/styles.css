@@ -476,3 +476,13 @@ lottie-player {
 .tickSvg {
   margin-right: 10px;  /* Adjust the value as needed */
 }
+
+.warning {
+  background-color: red;
+  color: white;
+  margin-bottom: 10px;              /* Space around the warning message */
+  text-align: center;          /* Center the warning text */
+  font-size: 12px;
+  line-height: 20px;
+}
+
