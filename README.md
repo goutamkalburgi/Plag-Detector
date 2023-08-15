@@ -77,6 +77,10 @@ MOSS is an integral tool in academic settings, primarily designed for detecting 
 - **Note**: Solely relying on MOSS scores without manual verification is discouraged. The scores indicate potential areas of concern, not definitive plagiarism.
 - Results are stored on the MOSS server for up to 14 days. After which, they might be removed to free up space.
 
+## Non-commercial Statement
+
+Non-commercial Statement: This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.
+
 ## About the Developer
 
 **Goutamkumar Kalburgi** is a seasoned Software Developer with a profound passion for building communities. Holding a Master's degree in Computer Science, he boasts years of experience in the software industry, adept in various programming languages, databases, tools, and platforms. With a keen interest in constant learning and adapting, Goutamkumar stands out as a proficient professional in the field. 
