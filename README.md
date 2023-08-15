@@ -11,6 +11,7 @@
 - [Usage](#usage)
 - [About MOSS](#about-moss)
 - [Non-commercial Statement](#non-commercial-statement)
+- [Generating Executable (.exe or .dmg)](#generating-executable)
 - [About the Developer](#about-the-developer)
 - [License](#license)
 
@@ -81,6 +82,62 @@ MOSS is an integral tool in academic settings, primarily designed for detecting 
 ## Non-commercial Statement
 
 **Non-commercial Statement:** This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.
+
+## Generating Executable (.exe or .dmg) for the Application
+
+If you wish to distribute the application without the need for users to run the Python script, you can package it as an executable. Since this is an Eel project, the process involves using PyInstaller. Follow the steps below to generate an `.exe` (for Windows) or `.dmg` (for MacOS):
+
+### Prerequisites:
+
+- Ensure you have [Python](https://www.python.org/downloads/) installed.
+- Ensure you have all the necessary packages installed by running:
+  ```bash
+  pip3 install -r requirements.txt
+  ```
+
+### Steps:
+
+1. **Install PyInstaller:**
+
+   First, you need to install PyInstaller using pip:
+
+   ```bash
+   pip3 install pyinstaller
+   ```
+
+2. **Generating the Executable:**
+
+   Navigate to your project directory and run:
+
+   For **Windows** (.exe):
+
+   ```bash
+   pyinstaller --onefile --windowed --add-data 'web;web' main.py
+   ```
+
+   For **MacOS** (.dmg):
+
+   First, generate a spec file:
+
+   ```bash
+   pyinstaller --onefile --windowed --add-data 'web:web' main.py
+   ```
+
+   Then, to create a `.dmg`:
+
+   ```bash
+   hdiutil create -volname "YourAppName" -srcfolder dist/YourAppName.app -ov -format UDZO YourAppName.dmg
+   ```
+
+3. **Retrieve the Executable:**
+
+   Once completed, you can find the executable in the `dist` folder inside your project directory.
+
+### Notes:
+
+- The `--add-data` argument ensures that the 'web' folder (containing assets and the Eel HTML interface) is packaged with the executable.
+- The path separator for `--add-data` varies between Windows (`;`) and MacOS (`:`). Ensure you use the appropriate separator for your OS.
+- If you face any issues or additional libraries are missing from the executable, consider tweaking the PyInstaller command or refer to the [official documentation](https://pyinstaller.readthedocs.io/).
 
 ## About the Developer
 
