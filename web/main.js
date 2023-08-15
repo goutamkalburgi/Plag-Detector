@@ -1,15 +1,6 @@
 // Wait for the DOM to be completely loaded before running the following code
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    // Set the initial internet connection status on page load
-    setInternetStatus();
-    updateButtonStatus();
-
-    // Event listeners to detect changes in internet connectivity
-    // 'online' and 'offline' events are fired by the browser when internet status changes
-    window.addEventListener('online', setInternetStatus);
-    window.addEventListener('offline', setInternetStatus);
-
     // Pre-defined menu and step class names
     const menus = ['step-menu1', 'step-menu2', 'step-menu3'];
     const steps = ['form-step-1', 'form-step-2', 'form-step-3'];
@@ -45,9 +36,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Handle disabling of runButton based on userInput's value
     const userInput = document.getElementById('userIn');
     const runButton = document.getElementById('run-button');
+    runButton.disabled = !userInput.value;
 
     // Disable or enable runButton based on whether userInput has a value
-    userInput.addEventListener('input', updateButtonStatus);
+    userInput.addEventListener('input', function () {
+        runButton.disabled = !userInput.value.trim();
+    });
 
     const operationChoice = document.getElementById('operationChoice');
     const operationDescription = document.getElementById('operationDescription');
@@ -198,39 +192,4 @@ function appendToLog(message, withTick) {
 
     messageElement.innerHTML += modifiedMessage;
     logContainer.appendChild(messageElement);
-}
-
-/**
- * Update the UI based on the internet connection status.
- * If the browser is online, it clears the status message and enables the run button.
- * If offline, it displays a message to the user and disables the run button.
- */
-function setInternetStatus() {
-    const statusElement = document.getElementById('internet-status');
-    const runButton = document.getElementById('run-button');  // Button controlling the main functionality of the app
-
-    if (navigator.onLine) {
-        // If the browser is online, we clear any status message and enable the button
-        statusElement.textContent = '';
-        statusElement.classList.remove('warning'); // Remove the warning class
-    } else {
-        // If offline, we inform the user and disable the main action button
-        statusElement.textContent = 'The internet connection is not active.';
-        statusElement.classList.add('warning');  // Add the warning class
-    }
-    
-    // Update the button's status based on the new internet connection status and userInput value
-    updateButtonStatus();
-}
-
-/**
- * Update the button's status based on the internet connection and userInput value.
- * If the browser is offline or userInput is empty, the button is disabled.
- */
-function updateButtonStatus() {
-    const runButton = document.getElementById('run-button');
-    const userInput = document.getElementById('userIn').value.trim();
-
-    // Check for both internet connectivity and user input to determine button's status
-    runButton.disabled = !navigator.onLine || !userInput;
 }
