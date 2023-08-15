@@ -10,6 +10,7 @@
   * [Installation](#installation)
 - [Usage](#usage)
 - [About MOSS](#about-moss)
+- [Non-commercial Statement](#non-commercial-statement)
 - [About the Developer](#about-the-developer)
 - [License](#license)
 
@@ -79,7 +80,7 @@ MOSS is an integral tool in academic settings, primarily designed for detecting 
 
 ## Non-commercial Statement
 
-Non-commercial Statement: This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.
+**Non-commercial Statement:** This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.
 
 ## About the Developer
 
