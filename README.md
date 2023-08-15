@@ -21,6 +21,10 @@
 - Integrates with the MOSS system and displays results within the interface.
 - Provides flexibility in terms of just extracting files or running the MOSS check.
 
+## Download Builds
+
+You can directly download the application builds from the **builds** folder within the repository. Both `.exe` (for Windows) and `.dmg` (for macOS) builds are available.
+
 ## Getting Started
 
 ### Prerequisites
