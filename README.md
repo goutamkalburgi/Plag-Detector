@@ -56,9 +56,12 @@ python3 main.py
 
 ## Usage
 
-1. Upon launching, you'll be prompted to **enter the directory** containing section submissions archives. This directory will also be used to store the results.
-2. **Specify the programming language** used in the student assignments from the available options.
-3. Choose your preferred operation:
+1. **Create Your Folder**: Begin by creating a folder on your PC. This will serve as the central location to manage all the files and results.
+2. **Prepare Section Submissions**: For the assignment you're analyzing, download the section submissions archive. Ensure that you save this archive into the folder you've created in the previous step. It's vital to ensure your folder contains only the section submissions of the assignment you wish to check for plagiarism.
+3. **Launch the Application**: Start the Projects Plagiarism Detector using MOSS Integration application.
+4. Upon launching, you'll be prompted to **enter the directory** containing section submissions archives. This directory will also be used to store the results.
+5. **Specify the programming language** used in the student assignments from the available options.
+6. Choose your preferred operation:
    - Extract Submissions and Run MOSS. (This action first extracts section submissions, followed by individual student archives. Next, it organizes relevant programming files and runs MOSS for similarity analysis.)
    - Extract Submissions and Organize Relevant Files. (This action first extracts section submissions and individual student archives. Then, it organizes the relevant programming files without running MOSS.)
 
