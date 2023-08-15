@@ -33,7 +33,7 @@
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Projects-Plagiarism-Detector-using-MOSS-Integration.git
+git clone https://github.com/goutamkalburgi/Projects-Plagiarism-Detector-using-MOSS-Integration.git
 ```
 
 2. Navigate into the project directory:
@@ -51,7 +51,7 @@ pip3 install -r requirements.txt
 4. Run the application:
 
 ```bash
-pip3 main.py
+python3 main.py
 ```
 
 ## Usage
