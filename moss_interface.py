@@ -38,22 +38,23 @@ class MossInterface:
         # Execute the MOSS command and capture the output
         result = subprocess.run(moss_command, shell=True, cwd=self.extracted_code_folders, capture_output=True, text=True)
         
-        # Pass the stdout to JavaScript function
-        lines = result.stdout.split('\n')
-        lastLine = lines[-2]
-        eel.appendToLog("The result is '" + lastLine + "'", True)
-        eel.completeProgressBar()
-
         # Define paths for output and error files inside the 'results' folder
         output_file_path = os.path.join(self.results_folder, self.output_file)
         error_file_path = os.path.join(self.results_folder, self.error_file)
 
-        # Write MOSS result to output file
-        with open(output_file_path, "w") as file:
-            file.write(result.stdout)
-
         # If there was an error during the MOSS execution, write the error to error file
         if result.returncode != 0:
+            eel.appendToLog("MOSS analysis encountered an unexpected error. Please review the error log below.<br>" + result.stderr, False)
             with open(error_file_path, "w") as file:
-                file.write(result.stderr)
-                eel.appendToLog(result.stderr, False)
+                file.write("MOSS analysis encountered an unexpected error. Please review the error log below.\n" + result.stderr)
+        else:
+            # Pass the stdout to JavaScript function
+            lines = result.stdout.split('\n')
+            lastLine = lines[-2]
+            eel.appendToLog("MOSS analysis completed successfully! Review the results below.<br>'" + lastLine + "'", True)
+            # Write MOSS result to output file
+            with open(output_file_path, "w") as file:
+                file.write("MOSS analysis completed successfully! Review the results below.\n" + result.stdout)
+        eel.completeProgressBar()
+
+

@@ -128,13 +128,13 @@ class FileManager:
 
         # Check for no section archives
         if section_archive_count == 0:
-            eel.appendToLog("No sections archives found.", False)
+            eel.appendToLog("No section archives found. Aborting extraction.", False)
             eel.completeProgressBar()
             return section_archive_count, individual_archive_count
         
         eel.appendToLog("Extracting Sections Archives...", True)
 
-        eel.appendToLog("Extracting all individual archives of sections and flattening the content...", True)
+        eel.appendToLog("Extracting individual student archives and organizing extracted files based on the programming language selected...", True)
         for file in Path(self.other_files).glob('*.*'):
             if file.suffix in configuration.SUPPORTED_ARCHIVE_EXTENSIONS:
                 individual_archive_count += 1
@@ -159,7 +159,7 @@ class FileManager:
         if individual_archive_count == 0 or individual_archive_count == 1:
             eel.appendToLog("Found zero or only one individual archive inside section archives.", False)
             eel.completeProgressBar()
-        eel.appendToLog("Extraction and flattening of content completed. Please check the 'extracted_code_folders' directory within the '" + self.results_folder + "' folder for the obtained results.", True)
+        eel.appendToLog("Section & student archives extracted & organized based on the programming language selected. See <code>output.txt</code>, <code>error.txt</code> & <code>extracted_code_folders</code> in the specified directory. (Copy and paste the path into your browser.)<br>'" + self.results_folder + "'.", True)
         
         if optional_callback:
             optional_callback()
