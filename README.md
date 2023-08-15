@@ -83,7 +83,7 @@ MOSS is an integral tool in academic settings, primarily designed for detecting 
 
 **Non-commercial Statement:** This application was developed for educational and academic purposes and is not intended for commercial use. It leverages the open-source capabilities of MOSS, honoring its non-commercial nature.
 
-## Generating Executable (.exe or .dmg) for the Application
+## Generating Executable (.exe or .dmg)
 
 If you wish to distribute the application without the need for users to run the Python script, you can package it as an executable. Since this is an Eel project, the process involves using PyInstaller. Follow the steps below to generate an `.exe` (for Windows) or `.dmg` (for MacOS):
 
