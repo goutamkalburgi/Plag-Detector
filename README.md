@@ -1,4 +1,5 @@
-# MOSS UI: A User Interface for MOSS Plagiarism Detection System
+# Projects Plagiarism Detector using MOSS Integration
+## A User Interface for MOSS Plagiarism Detection System. Plagiarism Detection in Project Submissions Through Seamless MOSS Integration.
 
 [MOSS](https://theory.stanford.edu/~aiken/moss/), or Measure Of Software Similarity, is an automated system developed to determine the similarity of programs. Primarily, its core use-case is to detect potential plagiarism in programming courses. This repository provides a user-friendly interface for MOSS to make the process more accessible.
 
@@ -15,7 +16,7 @@
 ## Features
 
 - Extracts section submissions downloaded from Canvas (or other LMS) in ZIP format.
-- Organizes individual student submissions and filters out relevant programming files based on the user's choice of programming language.
+- Extracts all individual archives of sections, organizes individual student submissions and filters out relevant programming files based on the user's choice of programming language.
 - Integrates with the MOSS system and displays results within the interface.
 - Provides flexibility in terms of just extracting files or running the MOSS check.
 
@@ -31,13 +32,13 @@
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/MOSS-UI.git
+git clone https://github.com/YOUR_USERNAME/Projects-Plagiarism-Detector-using-MOSS-Integration.git
 ```
 
 2. Navigate into the project directory:
 
 ```bash
-cd MOSS-UI
+cd Projects-Plagiarism-Detector-using-MOSS-Integration
 ```
 
 3. Install the required dependencies:
@@ -57,8 +58,8 @@ pip3 main.py
 1. Upon launching, you'll be prompted to **enter the directory** containing section submissions archives. This directory will also be used to store the results.
 2. **Specify the programming language** used in the student assignments from the available options.
 3. Choose your preferred operation:
-   - Extract submissions and run MOSS for a comprehensive similarity analysis.
-   - Only extract submissions for manual inspection.
+   - Extract Submissions and Run MOSS. (This action first extracts section submissions, followed by individual student archives. Next, it organizes relevant programming files and runs MOSS for similarity analysis.)
+   - Extract Submissions and Organize Relevant Files. (This action first extracts section submissions and individual student archives. Then, it organizes the relevant programming files without running MOSS.)
 
 After successful execution, a `results` folder will appear in your chosen directory with the following structure:
 
