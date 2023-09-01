@@ -1,4 +1,4 @@
-# Projects Plagiarism Detector using MOSS Integration
+# Plag Detector
 ## A User Interface for MOSS Plagiarism Detection System. Plagiarism Detection in Project Submissions Through Seamless MOSS Integration.
 
 [MOSS](https://theory.stanford.edu/~aiken/moss/), or Measure Of Software Similarity, is an automated system developed to determine the similarity of programs. Primarily, its core use-case is to detect potential plagiarism in programming courses. This repository provides a user-friendly interface for MOSS to make the process more accessible.
@@ -62,7 +62,7 @@ python3 main.py
 
 1. **Create Your Folder**: Begin by creating a folder on your PC. This will serve as the central location to manage all the files and results.
 2. **Prepare Section Submissions**: For the assignment you're analyzing, download the section submissions archive. Ensure that you save this archive into the folder you've created in the previous step. It's vital to ensure your folder contains only the section submissions of the assignment you wish to check for plagiarism.
-3. **Launch the Application**: Start the Projects Plagiarism Detector using MOSS Integration application.
+3. **Launch the Application**: Start the Plag Detector application.
 4. Upon launching, you'll be prompted to **enter the directory** containing section submissions archives. This directory will also be used to store the results.
 5. **Specify the programming language** used in the student assignments from the available options.
 6. Choose your preferred operation:
