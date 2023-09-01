@@ -32,24 +32,28 @@ class MossInterface:
         # Escape spaces in path for use in shell command
         moss_file = moss_file.replace(' ', '\\ ')
 
-        print(self.extracted_code_folders)
-
         # Construct the MOSS command
         moss_command_posix = f"perl {moss_file} -l {language_data['moss']} -d " + " ".join(f"*/*{ext}" for ext in language_data['extensions'])
-        moss_command_nt = f"perl \"{moss_file}\" -l {language_data['moss']} -d " + " ".join(f"/{ext}" for ext in language_data['extensions'])
+        moss_command_nt = f"perl \"{moss_file}\" -l {language_data['moss']} -d " + " ".join(f"*/*{ext}" for ext in language_data['extensions'])
 
         if os.name == "nt":
             # Check if bash is available in PATH
             bash_path = "bash"  # This assumes that bash (from either Git Bash, Cygwin, or WSL) is added to the PATH
 
             try:
-                subprocess.run([bash_path, "--version"], capture_output=True, text=True)
+                bash_version_result = subprocess.run([bash_path, "--version"], capture_output=True, text=True, stderr=subprocess.STDOUT)
+                bash_version_output = bash_version_result.stdout.strip()
+                # Check if the output actually contains a version string
+                if "GNU bash" in bash_version_output:
+                    pass  # Bash is correctly installed, continue with the rest of your code
+                else:
+                    raise FileNotFoundError
             except FileNotFoundError:
                 eel.appendToLog("Bash is not found in the system PATH. The software won't work on Windows without bash. "
                                 "Install either <a href='https://gitforwindows.org/'>Git Bash</a>, "
                                 "<a href='https://www.cygwin.com/'>Cygwin</a>, or enable "
                                 "<a href='https://docs.microsoft.com/en-us/windows/wsl/'>WSL</a>. "
-                                "Make sure to add it to the system PATH and verify by running 'bash --version' in a terminal.", False)
+                                "Make sure to add it to the system's PATH environment variable and verify by running 'bash --version' in a terminal.", False)
                 return
 
             # If bash is in PATH, can directly call bash to run your moss command
