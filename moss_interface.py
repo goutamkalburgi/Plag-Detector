@@ -41,7 +41,7 @@ class MossInterface:
             bash_path = "bash"  # This assumes that bash (from either Git Bash, Cygwin, or WSL) is added to the PATH
 
             try:
-                bash_version_result = subprocess.run([bash_path, "--version"], capture_output=True, text=True, stderr=subprocess.STDOUT)
+                bash_version_result = subprocess.run([bash_path, "--version"], capture_output=True, text=True)
                 bash_version_output = bash_version_result.stdout.strip()
                 # Check if the output actually contains a version string
                 if "GNU bash" in bash_version_output:
