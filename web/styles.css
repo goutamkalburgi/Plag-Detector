@@ -264,6 +264,10 @@ body {
   margin-top: 12px;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .form-info {
   margin-top: 16px;
   font-style: italic;
