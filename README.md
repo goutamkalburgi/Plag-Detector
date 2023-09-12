@@ -37,17 +37,22 @@ You can directly download the application builds from the **builds** folder with
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/goutamkalburgi/Projects-Plagiarism-Detector-using-MOSS-Integration.git
+git clone https://github.com/goutamkalburgi/Plag-Detector.git
 ```
 
 2. Navigate into the project directory:
 
 ```bash
-cd Projects-Plagiarism-Detector-using-MOSS-Integration
+cd Plag-Detector
 ```
 
 3. Install the required dependencies:
 
+Either run the automated requirements installer:
+```bash
+python3 install_requirements.py
+```
+or manually execute:
 ```bash
 pip3 install -r requirements.txt
 ```
