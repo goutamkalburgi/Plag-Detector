@@ -16,7 +16,9 @@ LANGUAGE_CONFIG = {
     'Python': {'extensions': ['.py'], 'moss': 'python'},
     'Visual Basic': {'extensions': ['.vb', '.vbs'], 'moss': 'vb'},
     'Javascript': {'extensions': ['.js'], 'moss': 'javascript'},
-    'TypeScript': {'extensions': ['.ts'], 'moss': 'javascript'}
+    'TypeScript': {'extensions': ['.ts'], 'moss': 'javascript'},
+    'MATLAB': {'extensions': ['.m'], 'moss': 'matlab'},
+    'MIPS': {'extensions': ['.asm', '.s', '.mips'], 'moss': 'mips'}
     # Further languages can be added here.
 }
 
